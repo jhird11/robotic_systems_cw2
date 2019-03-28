@@ -5,8 +5,8 @@
 const byte MAP_RESOLUTION = 25;
 const byte MAP_DEFAULT_FEATURE = '#';
 const byte MAP_EXPLORED_FEATURE = '.';
-const int MAP_X=1800;
-const int MAP_Y=1800;
+const int MAP_X=300;
+const int MAP_Y=300;
 
 class Mapper
 {
@@ -125,6 +125,7 @@ void Mapper::updateMapFeature(byte feature, int y, int x)
     else
     {
         char value = (char)EEPROM.read(eeprom_address);
+        //Only write feature if cell doesn't contain an RFID tag or 
         if (value ==MAP_DEFAULT_FEATURE||value ==MAP_EXPLORED_FEATURE){
           EEPROM.update(eeprom_address, feature);}
     }

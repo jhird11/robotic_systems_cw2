@@ -1,5 +1,6 @@
 #ifndef _Kinematics
 #define _Kinematics_h
+#include "mapping.h"
 
 
 #define GEAR_RATIO 120.0
@@ -27,8 +28,8 @@ class Kinematics
         
     private:
 
-         float x=900;
-         float y=900;
+         float x=MAP_X/2;
+         float y=MAP_Y/2;
          float theta=0;
          float last_theta = 0;
          float angular_velocity = 0;

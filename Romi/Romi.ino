@@ -218,13 +218,28 @@ void doMovement() {
   float forward_bias;
   float turn_bias;
 
+
+  int tolerance = 0;
+  float projected_x = Pose.getX() + ( 100 * cos( Pose.getThetaRadians() ) );
+  float projected_y = Pose.getY() + ( 100 * sin( Pose.getThetaRadians() ) );
+  //Project point infront of romi, if point is outside the map treat it as an obstical and turn away    
+  bool at_edge =  (projected_x>= MAP_X - tolerance || projected_x < 0 + tolerance || projected_y>= MAP_Y - tolerance || projected_y< 0 + tolerance);
+  if (at_edge){
+    Serial.print("avoiding edge:");
+        Serial.print(projected_x);
+                Serial.print(",");
+            Serial.println(projected_y);
+    
+    }
   // Check if we are about to collide.  If so,
   // zero forward speed
-  if( DistanceSensor.getDistanceRaw() > 450 ) {
+  if( DistanceSensor.getDistanceRaw() > 450 ||at_edge) {
     forward_bias = 0;
   } else {
     forward_bias = 5;
   }
+  
+  
 
   // Periodically set a random turn.
   // Here, gaussian means we most often drive
@@ -314,7 +329,7 @@ void doMapping() {
       Map.updateMapFeature( (byte)'L', Pose.getY(), Pose.getX() );
   }
 
-  if (current_pose_empty){
+  if (current_pose_empty){ // not technically needed as the explored feature char cannot overide a line or RFID tag (see mapping.h)
     Map.updateMapFeature( (byte)MAP_EXPLORED_FEATURE, Pose.getY() , Pose.getX()  );
   }
 }

@@ -97,10 +97,10 @@ void setup()
 
   // For this example, we'll calibrate only the 
   // centre sensor.  You may wish to use more.
-  //LineCentre.calibrate();
+  LineCentre.calibrate();
 
   //Setup RFID card
-  //setupRFID();
+  setupRFID();
 
   // These functions calibrate the IMU and Magnetometer
   // The magnetometer calibration routine require you to move
@@ -179,15 +179,25 @@ void loop() {
 
   static unsigned long timer1 = millis();
 
-  if (millis()-timer1>5000){
+  if (millis()-timer1>200){
     timer1 = millis();
-    Serial.print(Pose.getX());Serial.println(Pose.getY());//Serial.println(Pose.getX());
-    
-    Map.printMap();
-    Map.percent();    
+    Serial.print(Pose.getX());Serial.print(",");Serial.println(Pose.getY());//Serial.println(Pose.getX());
+    test_sensors();
+    //Map.printMap();
+    //Map.percent();    
   }
 }
 
+void test_sensors()
+{
+  Serial.print("Line sensor: ");
+  Serial.println(LineCentre.readRaw());
+  Serial.print("RFID: ");
+  Serial.println(checkForRFID());
+  Serial.print("Distance sensor: ");
+  Serial.println(DistanceSensor.getDistanceInMM());
+  
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  * We have implemented a random walk behaviour for you
@@ -213,7 +223,7 @@ void doMovement() {
   if( DistanceSensor.getDistanceRaw() > 450 ) {
     forward_bias = 0;
   } else {
-    forward_bias = 20;
+    forward_bias = 5;
   }
 
   // Periodically set a random turn.

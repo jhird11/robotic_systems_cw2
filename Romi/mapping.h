@@ -5,8 +5,8 @@
 const byte MAP_RESOLUTION = 25;
 const byte MAP_DEFAULT_FEATURE = '#';
 const byte MAP_EXPLORED_FEATURE = '.';
-const int MAP_X=300;
-const int MAP_Y=300;
+const int MAP_X=1800;
+const int MAP_Y=1800;
 
 class Mapper
 {
@@ -51,15 +51,15 @@ void Mapper::printMap()
 {
 
     Serial.println("Map");
-    for (int i=0;i<MAP_RESOLUTION;i++)
+    for (int y_index=MAP_RESOLUTION-1;y_index>=0;y_index--)
     {
-        for(int j=0;j<MAP_RESOLUTION;j++)
-        {
-            int eeprom_address = (i*MAP_RESOLUTION)+j;
+        for(int x_index=0;x_index<MAP_RESOLUTION;x_index++){
+          
+            int eeprom_address = (x_index*MAP_RESOLUTION)+y_index;
             byte value;
             value = EEPROM.read(eeprom_address);//, value);
             Serial.print( (char)value );
-            Serial.print(" ");
+            Serial.print("  ");
         }
         Serial.println("");
     }
@@ -115,7 +115,7 @@ void Mapper::updateMapFeature(byte feature, int y, int x)
 
     int x_index = poseToIndex(x, MAP_X, MAP_RESOLUTION);
     int y_index = poseToIndex(y, MAP_Y, MAP_RESOLUTION);  
-
+//    int eeprom_address = (x_index * MAP_RESOLUTION) + y_index;  
     int eeprom_address = (x_index * MAP_RESOLUTION) + y_index;  
 
     if (eeprom_address > 1023)

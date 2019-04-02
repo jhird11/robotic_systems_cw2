@@ -30,7 +30,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 #define BAUD_RATE 9600
 
-
+#define LED_PIN 13//,30,17
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  * Class Instances.                                                              *
@@ -97,7 +97,7 @@ void setup()
 
   // For this example, we'll calibrate only the 
   // centre sensor.  You may wish to use more.
-  LineCentre.calibrate();
+
 
   //Setup RFID card
   setupRFID();
@@ -124,7 +124,7 @@ void setup()
   Serial.begin( BAUD_RATE );
   delay(1000);
   Serial.println("Board Reset");
-
+  
   // Romi will wait for you to press a button and then print
   // the current map.
   //
@@ -133,9 +133,9 @@ void setup()
 
   Map.printMap();
 
+  Serial.print("Percent Explored: "); Serial.println(Map.percent());
   // Watch for second button press, then begin autonomous mode.
   ButtonB.waitForButton();  
-
   Serial.println("Map Erased - Mapping Started");
   Map.resetMap();
 
@@ -154,7 +154,7 @@ void setup()
   RightSpeedControl.reset();
   left_speed_demand = 5;
   right_speed_demand = 5;
-
+  LineCentre.calibrate();
   
   
 }
@@ -190,12 +190,12 @@ void loop() {
 
 void test_sensors()
 {
-  Serial.print("Line sensor: ");
+  /*Serial.print("Line sensor: ");
   Serial.println(LineCentre.readRaw());
   Serial.print("RFID: ");
   Serial.println(checkForRFID());
   Serial.print("Distance sensor: ");
-  Serial.println(DistanceSensor.getDistanceInMM());
+  Serial.println(DistanceSensor.getDistanceInMM());*/
   
 }
 
@@ -219,9 +219,9 @@ void doMovement() {
   float turn_bias;
 
 
-  int tolerance = 0;
-  float projected_x = Pose.getX() + ( 100 * cos( Pose.getThetaRadians() ) );
-  float projected_y = Pose.getY() + ( 100 * sin( Pose.getThetaRadians() ) );
+  int tolerance = 30;
+  float projected_x = Pose.getX() + ( 140 * cos( Pose.getThetaRadians() ) );
+  float projected_y = Pose.getY() + ( 140 * sin( Pose.getThetaRadians() ) );
   //Project point infront of romi, if point is outside the map treat it as an obstical and turn away    
   bool at_edge =  (projected_x>= MAP_X - tolerance || projected_x < 0 + tolerance || projected_y>= MAP_Y - tolerance || projected_y< 0 + tolerance);
   if (at_edge){
@@ -233,14 +233,16 @@ void doMovement() {
     }
   // Check if we are about to collide.  If so,
   // zero forward speed
+  bool at_obstical = false;
   if( DistanceSensor.getDistanceRaw() > 450 ||at_edge) {
-    forward_bias = 0;
+    forward_bias = -3;
+    at_obstical = true;    
   } else {
     forward_bias = 5;
   }
   
   
-
+  static float osc_bias = 3;
   // Periodically set a random turn.
   // Here, gaussian means we most often drive
   // forwards, and occasionally make a big turn.
@@ -248,8 +250,14 @@ void doMovement() {
     walk_update = millis();
 
     // randGaussian(mean, sd).  utils.h
-    turn_bias = randGaussian(0, 6.5 );
-
+    if (at_obstical){
+      turn_bias = randGaussian(0, 10 );
+    }
+    else
+    {
+      osc_bias*=-1;
+      turn_bias = randGaussian(0, 3 ) + osc_bias;      
+    }
     // Setting a speed demand with these variables
     // is automatically captured by a speed PID 
     // controller in timer3 ISR. Check interrupts.h
@@ -324,7 +332,7 @@ void doMapping() {
 
   // Basic uncalibrated check for a line.
   // Students can do better than this after CW1 ;)
-  if( LineCentre.readRaw() > 580 ) {
+  if( LineCentre.readRaw() > 400 ) {
     current_pose_empty = false;
       Map.updateMapFeature( (byte)'L', Pose.getY(), Pose.getX() );
   }

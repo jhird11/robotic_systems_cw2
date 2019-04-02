@@ -303,7 +303,7 @@ void doMapping() {
     // Here we calculate the actual position of the obstacle we have detected
     float projected_x = Pose.getX() + ( distance * cos( Pose.getThetaRadians() ) );
     float projected_y = Pose.getY() + ( distance * sin( Pose.getThetaRadians() ) );
-    Map.updateMapFeature( (byte)'O', projected_x, projected_y );
+    Map.updateMapFeature( (byte)'O', projected_y, projected_x );
     
     
   } 

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="6377.9526"
+   height="6732.2832"
+   id="svg3050"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Map_1.svg">
+  <defs
+     id="defs3052">
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Send"
+       style="overflow:visible;">
+      <path
+         id="path3931"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.2) rotate(180) translate(6,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path3916"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path3919"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3897"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3893"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3889"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3859"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3066"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3062"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3062-7"
+       is_visible="true" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.15999999"
+     inkscape:cx="1934.0705"
+     inkscape:cy="2328.5194"
+     inkscape:document-units="cm"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     units="cm"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3058"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata3055">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,5679.9194)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:8.83907318;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 3197.7408,-2318.1689 0,-168.3463"
+       id="path3060"
+       inkscape:path-effect="#path-effect3062"
+       inkscape:original-d="m 3197.7408,-2318.1689 0,-168.3463"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:8.83907318;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 3104.8132,-2406.7801 168.3462,0"
+       id="path3060-4"
+       inkscape:path-effect="#path-effect3062-7"
+       inkscape:original-d="m 3104.8132,-2406.7801 168.3462,0"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:35.43307114;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:106.2992126, 35.43307087;stroke-dashoffset:0"
+       id="rect3861"
+       width="1280"
+       height="480"
+       x="1037.5"
+       y="-4157.6362" />
+    <g
+       id="g3879"
+       transform="translate(-162.5,-150)">
+      <rect
+         transform="translate(0,-5679.9194)"
+         y="1772.2832"
+         x="4640"
+         height="960"
+         width="480"
+         id="rect3863"
+         style="fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:35.43307114;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:106.2992126, 35.43307087;stroke-dashoffset:0" />
+      <rect
+         transform="translate(0,-5679.9194)"
+         y="2732.2832"
+         x="4000"
+         height="320"
+         width="1760"
+         id="rect3865"
+         style="fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:35.43307114;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:106.2992126, 35.43307087;stroke-dashoffset:0" />
+    </g>
+    <g
+       id="g3874"
+       transform="translate(-237.5,562.5)">
+      <a
+         id="a3871"
+         inkscape:export-filename="C:\Users\ke18164\Google Drive\Teaching\COMSM0111\Development\Coursework\CW2\Released Maps\ExperimentDay1_Beacons.png"
+         inkscape:export-xdpi="25.879999"
+         inkscape:export-ydpi="25.879999">
+        <rect
+           style="fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:35.43307114;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:106.2992126, 35.43307087;stroke-dashoffset:0"
+           id="rect3867"
+           width="1760"
+           height="480"
+           x="1272.5"
+           y="-1335.1362" />
+      </a>
+      <rect
+         y="-1970.6362"
+         x="2549"
+         height="640"
+         width="480"
+         id="rect3869"
+         style="fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:35.43307114;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:106.2992126, 35.43307087;stroke-dashoffset:0"
+         inkscape:export-filename="C:\Users\ke18164\Google Drive\Teaching\COMSM0111\Development\Coursework\CW2\Released Maps\ExperimentDay1_Beacons.png"
+         inkscape:export-xdpi="25.879999"
+         inkscape:export-ydpi="25.879999" />
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:28.34645669;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 480,5412.2832 0,-1080 480,-720 920,0"
+       id="path3887"
+       inkscape:path-effect="#path-effect3889"
+       inkscape:original-d="m 480,5412.2832 0,-1080 480,-720 920,0"
+       inkscape:connector-curvature="0"
+       transform="translate(0,-5679.9194)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:28.34645653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 4892.5,-2177.6362 0,1920 800,800 0,0"
+       id="path3891"
+       inkscape:path-effect="#path-effect3893"
+       inkscape:original-d="m 4892.5,-2177.6362 0,1920 800,800 0,0"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:30.44185829;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 3680,-3587.6362 4479.4132,-5075.1704 5440,-5187.6362"
+       id="path3895"
+       inkscape:path-effect="#path-effect3897"
+       inkscape:original-d="M 3680,-3587.6362 4479.4132,-5075.1704 5440,-5187.6362"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+  </g>
+</svg>

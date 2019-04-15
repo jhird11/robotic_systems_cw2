@@ -5,8 +5,8 @@
 const byte MAP_RESOLUTION = 25;
 const byte MAP_DEFAULT_FEATURE = '#';
 const byte MAP_EXPLORED_FEATURE = '.';
-const int MAP_X=1800;
-const int MAP_Y=1800;
+const int MAP_X=560;
+const int MAP_Y=560;
 
 class Mapper
 {
@@ -15,7 +15,7 @@ class Mapper
         void printMap();
         void updateMapFeature(byte feature, int y, int x);
         void updateMapFeature(byte feature, float y, float x);
-        
+        char readCell(float y, float x);
         int  indexToPose(int i, int map_size, int resolution);
         int  poseToIndex(int x, int map_size, int resolution);
         float percent();
@@ -45,6 +45,17 @@ void Mapper::resetMap()
         }
     }
 
+}
+
+char Mapper::readCell(float y, float x){
+
+  int x_index = poseToIndex(x, MAP_X, MAP_RESOLUTION);
+  int y_index = poseToIndex(y, MAP_Y, MAP_RESOLUTION);  
+  int eeprom_address = (x_index*MAP_RESOLUTION)+y_index;
+  byte value;
+  value = EEPROM.read(eeprom_address);//, value);
+
+  return char(value);
 }
 
 void Mapper::printMap()

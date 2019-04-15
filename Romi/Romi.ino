@@ -146,6 +146,7 @@ void setup()
   Map.printMap();
 
   Serial.print("Percent Explored: "); Serial.println(Map.percent());
+   Serial.println(exploreBias());
   // Watch for second button press, then begin autonomous mode.
   delay(500);
   setLED1(true);
@@ -208,11 +209,12 @@ void loop() {
 
   static unsigned long timer1 = millis();
 
-  if (millis()-timer1>200){
+  if (millis()-timer1>500){
     timer1 = millis();
+    
     Serial.print(Pose.getX());Serial.print(",");Serial.println(Pose.getY());//Serial.println(Pose.getX());
-    //test_sensors();
-    //Map.printMap();
+    test_sensors();
+    Map.printMap();
     //Map.percent();    
   }
 }
@@ -226,7 +228,8 @@ void test_sensors()
   Serial.print("Distance sensor: ");
   Serial.print("5,");
   Serial.println(DistanceSensor.getDistanceInMM());*/
-  
+  Serial.print("Turn Bais,");
+  Serial.println(exploreBias());
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
@@ -298,7 +301,32 @@ void doMovement() {
   
 }
 
+float exploreBias()
+{
+  const float radius = 80;
+  float left_x = Pose.getX() + ( radius * cos( Pose.getThetaRadians() + 45*PI/180) );
+  float left_y = Pose.getY() + ( radius * sin( Pose.getThetaRadians() + 45*PI/180) );
 
+  float fwd_x = Pose.getX() + ( radius * cos( Pose.getThetaRadians() ) );
+  float fwd_y = Pose.getY() + ( radius * sin( Pose.getThetaRadians() ) );
+  
+  float right_x = Pose.getX() + ( radius * cos( Pose.getThetaRadians() - 45*PI/180) );
+  float right_y = Pose.getY() + ( radius * sin( Pose.getThetaRadians() - 45*PI/180) );
+  
+  bool left_cell_ex = Map.readCell(left_y, left_x ) == MAP_DEFAULT_FEATURE;
+  bool fwd_cell_ex = Map.readCell(fwd_y, fwd_x ) == MAP_DEFAULT_FEATURE;
+  bool right_cell_ex = Map.readCell(right_y, right_x )== MAP_DEFAULT_FEATURE;
+  float bias = 0;
+  if (fwd_cell_ex){
+      bias = 0;
+  }else if (left_cell_ex){
+    bias = 1;
+  }else if (right_cell_ex){
+    bias = -1;
+  }
+  return bias*0.5;
+ 
+}
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  * This function groups up our sensor checks, and then
  * encodes into the map.  To get you started, we are 
@@ -371,5 +399,3 @@ void doMapping() {
     Map.updateMapFeature( (byte)MAP_EXPLORED_FEATURE, Pose.getY() , Pose.getX()  );
   }
 }
-
-

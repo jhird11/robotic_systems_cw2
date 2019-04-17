@@ -73,7 +73,7 @@ bool use_speed_controller = true;
 float left_speed_demand = 0;
 float right_speed_demand = 0;
 
-
+#define CALIBRATE_MODE 0
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  * This setup() routine initialises all class instances above and peripherals.   *
  * It is recommended:                                                            *
@@ -97,7 +97,8 @@ void setup()
 
   // For this example, we'll calibrate only the 
   // centre sensor.  You may wish to use more.
-
+  //Recalibrates when map is cleared 
+  LineCentre.calibrate();
 
   //Setup RFID card
   setupRFID();
@@ -114,7 +115,10 @@ void setup()
   Imu.init();
   Imu.calibrate();
   */
+  ///////////////////////////////////END of sensor initialisation/////////////////////////////////////////
 
+
+  
   // Set the random seed for the random number generator
   // from A0, which should itself be quite random.
   randomSeed(analogRead(A0));
@@ -125,6 +129,13 @@ void setup()
   delay(1000);
   Serial.println("Board Reset");
   
+  if (CALIBRATE_MODE){
+    for (int i = 0;i<100;i++){
+      //For calibrating IR sensor
+      //Serial.print("45,");
+      //Serial.println(DistanceSensor.getDistanceInMM());
+    }
+  }
   // Romi will wait for you to press a button and then print
   // the current map.
   //
@@ -142,14 +153,7 @@ void setup()
   setLED1(false);
   Serial.println("Map Erased - Mapping Started");
   Map.resetMap();
-  delay(100);
-  setLED1(true);
-  delay(100);
-  setLED1(false);
-  delay(100);
-  setLED1(true);
-  delay(100);
-  setLED1(false);
+  flashLED(100);
   // Your extra setup code is best placed here:
   // ...
   // ...
@@ -174,7 +178,17 @@ void setLED1(bool state)
 {
   digitalWrite(LED_PIN,state);
 }
-
+void flashLED(int flash_time)
+{
+  delay(flash_time);
+  setLED1(true);
+  delay(flash_time);
+  setLED1(false);
+  delay(flash_time);
+  setLED1(true);
+  delay(flash_time);
+  setLED1(false);
+}
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  * This loop() demonstrates all devices being used in a basic sequence.          
  * The Romi should:                                                                              
@@ -197,7 +211,7 @@ void loop() {
   if (millis()-timer1>200){
     timer1 = millis();
     Serial.print(Pose.getX());Serial.print(",");Serial.println(Pose.getY());//Serial.println(Pose.getX());
-    test_sensors();
+    //test_sensors();
     //Map.printMap();
     //Map.percent();    
   }
@@ -210,6 +224,7 @@ void test_sensors()
   Serial.print("RFID: ");
   Serial.println(checkForRFID());
   Serial.print("Distance sensor: ");
+  Serial.print("5,");
   Serial.println(DistanceSensor.getDistanceInMM());*/
   
 }
@@ -249,7 +264,7 @@ void doMovement() {
   // Check if we are about to collide.  If so,
   // zero forward speed
   bool at_obstical = false;
-  if( DistanceSensor.getDistanceRaw() > 450 ||at_edge) {
+  if( DistanceSensor.getDistanceInMM() < 200 ||at_edge) {
     forward_bias = -3;
     at_obstical = true;    
   } else {
@@ -305,7 +320,7 @@ void doMapping() {
   bool current_pose_empty = true;
 
   float distance = DistanceSensor.getDistanceInMM();
-  if( distance < 40 && distance > 12 ) {
+  if( distance < 35 && distance > 12 ) {
 
     // We know the romi has the sensor mounted
     // to the front of the robot.  Therefore, the

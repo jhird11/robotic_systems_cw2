@@ -37,11 +37,16 @@ float SharpIR::getDistanceInMM()
     float distance = (float)analogRead( pin );
     
     // map this to 0 : 5v range.
-    distance *= 0.0048;
+    
 
-    const float exponent = (1/-0.616);
-    distance = pow( ( distance / 12.494 ), exponent);
-       
+    //Original config
+    //const float exponent = (1/-0.616);
+    //base expondent
+    //distance = pow( ( distance / 12.494 ), exponent);
+    distance *= 0.0048823813;
+
+    //calibrated for pete's sensor
+    distance = pow(distance , -1.358)*538.32;
     return distance;
 }
 

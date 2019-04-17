@@ -1,8 +1,8 @@
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
- * Library Includes.                                                             *
- * Be sure to check each of these to see what variables/functions are made        *
- * global and accessible.                                                        *
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   Library Includes.
+   Be sure to check each of these to see what variables/functions are made
+   global and accessible.
  *                                                                               *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -23,18 +23,18 @@
 
 
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
- * Definitions.  Other definitions exist in the .h files above.                  *
- * Also ensure you check pins.h for pin/device definitions.                      *
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   Definitions.  Other definitions exist in the .h files above.
+   Also ensure you check pins.h for pin/device definitions.
  *                                                                               *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 #define BAUD_RATE 9600
 
 #define LED_PIN 13//,30,17
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
- * Class Instances.                                                              *
- * This list is complete for all devices supported in this code.                 *
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   Class Instances.
+   This list is complete for all devices supported in this code.
  *                                                                               *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 Kinematics    Pose; //Kinematics class to store position and heading
@@ -61,10 +61,10 @@ Mapper        Map; //Class for representing the map
 
 Pushbutton    ButtonB( BUTTON_B, DEFAULT_STATE_HIGH);
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
- * Global variables.                                                             *
- * These global variables are not mandatory, but are used for the example loop() *
- * routine below.                                                                *
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   Global variables.
+   These global variables are not mandatory, but are used for the example loop()
+   routine below.
  *                                                                               *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -74,12 +74,12 @@ float left_speed_demand = 0;
 float right_speed_demand = 0;
 
 #define CALIBRATE_MODE 0
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
- * This setup() routine initialises all class instances above and peripherals.   *
- * It is recommended:                                                            *
- * - You keep this sequence of setup calls if you are to use all the devices.    *
- * - Comment out those you will not use.                                         *
- * - Insert new setup code after the below sequence.                             *
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   This setup() routine initialises all class instances above and peripherals.
+   It is recommended:
+   - You keep this sequence of setup calls if you are to use all the devices.
+   - Comment out those you will not use.
+   - Insert new setup code after the below sequence.
  *                                                                               *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void setup()
@@ -95,9 +95,9 @@ void setup()
   LeftSpeedControl.setMax(100);
   RightSpeedControl.setMax(100);
 
-  // For this example, we'll calibrate only the 
+  // For this example, we'll calibrate only the
   // centre sensor.  You may wish to use more.
-  //Recalibrates when map is cleared 
+  //Recalibrates when map is cleared
   LineCentre.calibrate();
 
   //Setup RFID card
@@ -105,18 +105,18 @@ void setup()
 
   // These functions calibrate the IMU and Magnetometer
   // The magnetometer calibration routine require you to move
-  // your robot around  in space.  
+  // your robot around  in space.
   // The IMU calibration requires the Romi does not move.
   // See related lab sheets for more information.
   /*
-  Wire.begin();
-  Mag.init();
-  Mag.calibrate();
-  Imu.init();
-  Imu.calibrate();
+    Wire.begin();
+    Mag.init();
+    Mag.calibrate();
+    Imu.init();
+    Imu.calibrate();
   */
   ///////////////////////////////////END of sensor initialisation/////////////////////////////////////////
-  
+
   // Set the random seed for the random number generator
   // from A0, which should itself be quite random.
   randomSeed(analogRead(A0));
@@ -126,9 +126,9 @@ void setup()
   Serial.begin( BAUD_RATE );
   delay(1000);
   Serial.println("Board Reset");
-  
-  if (CALIBRATE_MODE){
-    for (int i = 0;i<100;i++){
+
+  if (CALIBRATE_MODE) {
+    for (int i = 0; i < 100; i++) {
       //For calibrating IR sensor
       //Serial.print("45,");
       //Serial.println(DistanceSensor.getDistanceInMM());
@@ -139,16 +139,15 @@ void setup()
   //
   // !!! A second button press will erase the map !!!
   setLED1(true);
-  ButtonB.waitForButton();  
+  ButtonB.waitForButton();
   setLED1(false);
   Map.printMap();
 
   Serial.print("Percent Explored: "); Serial.println(Map.percent());
-   Serial.println(exploreBias());
   // Watch for second button press, then begin autonomous mode.
   delay(500);
   setLED1(true);
-  ButtonB.waitForButton();  
+  ButtonB.waitForButton();
   setLED1(false);
   Serial.println("Map Erased - Mapping Started");
   Map.resetMap();
@@ -160,7 +159,7 @@ void setup()
 
   // Because code flow has been blocked, we need to reset the
   // last_time variable of the PIDs, otherwise we update the
-  // PID with a large time elapsed since the class was 
+  // PID with a large time elapsed since the class was
   // initialised, which will cause a big intergral term.
   // If you don't do this, you'll see the Romi accelerate away
   // very fast!
@@ -170,12 +169,12 @@ void setup()
   left_speed_demand = 5;
   right_speed_demand = 5;
   LineCentre.calibrate();
-  
-  
+
+
 }
 void setLED1(bool state)
 {
-  digitalWrite(LED_PIN,state);
+  digitalWrite(LED_PIN, state);
 }
 void flashLED(int flash_time)
 {
@@ -188,12 +187,12 @@ void flashLED(int flash_time)
   delay(flash_time);
   setLED1(false);
 }
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
- * This loop() demonstrates all devices being used in a basic sequence.          
- * The Romi should:                                                                              
- * - move forwards with random turns 
- * - log lines, RFID and obstacles to the map.
- * 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   This loop() demonstrates all devices being used in a basic sequence.
+   The Romi should:
+   - move forwards with random turns
+   - log lines, RFID and obstacles to the map.
+
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void loop() {
   // Remember to always update kinematics!!
@@ -202,43 +201,43 @@ void loop() {
   doMovement();
 
   doMapping();
-  
+
   delay(2);
 
   static unsigned long timer1 = millis();
 
-  if (millis()-timer1>500){
+  if (millis() - timer1 > 500) {
     timer1 = millis();
-    
-    Serial.print(Pose.getX());Serial.print(",");Serial.println(Pose.getY());//Serial.println(Pose.getX());
+
+    Serial.print(Pose.getX()); Serial.print(","); Serial.println(Pose.getY()); //Serial.println(Pose.getX());
 
     //test_sensors();
     //Map.printMap();
 
-    //Map.percent();    
+    //Map.percent();
   }
 }
 
 void test_sensors()
 {
   /*Serial.print("Line sensor: ");
-  Serial.println(LineCentre.readRaw());
-  Serial.print("RFID: ");
-  Serial.println(checkForRFID());
-  Serial.print("Distance sensor: ");
-  Serial.print("5,");
-  Serial.println(DistanceSensor.getDistanceInMM());*/
+    Serial.println(LineCentre.readRaw());
+    Serial.print("RFID: ");
+    Serial.println(checkForRFID());
+    Serial.print("Distance sensor: ");
+    Serial.print("5,");
+    Serial.println(DistanceSensor.getDistanceInMM());*/
   Serial.print("Turn Bais,");
-  Serial.println(exploreBias());
+  Serial.println(local_bias());
 }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
- * We have implemented a random walk behaviour for you
- * with a *very* basic obstacle avoidance behaviour.  
- * It is enough to get the Romi to drive around.  We 
- * expect that in your first week, should should get a
- * better obstacle avoidance behaviour implemented for
- * your Experiment Day 1 baseline test.  
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   We have implemented a random walk behaviour for you
+   with a *very* basic obstacle avoidance behaviour.
+   It is enough to get the Romi to drive around.  We
+   expect that in your first week, should should get a
+   better obstacle avoidance behaviour implemented for
+   your Experiment Day 1 baseline test.
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void doMovement() {
 
@@ -255,31 +254,31 @@ void doMovement() {
   int tolerance = 30;
   float projected_x = Pose.getX() + ( 140 * cos( Pose.getThetaRadians() ) );
   float projected_y = Pose.getY() + ( 140 * sin( Pose.getThetaRadians() ) );
-  //Project point infront of romi, if point is outside the map treat it as an obstical and turn away    
-  bool at_edge =  (projected_x>= MAP_X - tolerance || projected_x < 0 + tolerance || projected_y>= MAP_Y - tolerance || projected_y< 0 + tolerance);
-  if (at_edge){
+  //Project point infront of romi, if point is outside the map treat it as an obstical and turn away
+  bool at_edge =  (projected_x >= MAP_X - tolerance || projected_x < 0 + tolerance || projected_y >= MAP_Y - tolerance || projected_y < 0 + tolerance);
+  if (at_edge) {
     Serial.print("avoiding edge:");
-        Serial.print(projected_x);
-                Serial.print(",");
-            Serial.println(projected_y);
-    
-    }
+    Serial.print(projected_x);
+    Serial.print(",");
+    Serial.println(projected_y);
+
+  }
   // Check if we are about to collide.  If so,
   // zero forward speed
   bool at_obstical = false;
-  if( DistanceSensor.getDistanceInMM() < 200 ||at_edge) {
+  if ( DistanceSensor.getDistanceInMM() < 200 || at_edge) {
     forward_bias = -3;
-    at_obstical = true;    
+    at_obstical = true;
   } else {
     forward_bias = 5;
   }
-  
-  
-  static float osc_bias = 3;
+
+
+  static float osc_bias = 1;
   // Periodically set a random turn.
   // Here, gaussian means we most often drive
   // forwards, and occasionally make a big turn.
-  if( millis() - walk_update > 500 ) {
+  /*if( millis() - walk_update > 500 ) { //BASELINE
     walk_update = millis();
 
     // randGaussian(mean, sd).  utils.h
@@ -289,71 +288,110 @@ void doMovement() {
     else
     {
       osc_bias*=-1;
-      turn_bias = randGaussian(0, 3 ) + osc_bias;      
+      turn_bias = randGaussian(0, 3 ) + osc_bias*3;
     }
     // Setting a speed demand with these variables
-    // is automatically captured by a speed PID 
+    // is automatically captured by a speed PID
     // controller in timer3 ISR. Check interrupts.h
     // for more information.
     left_speed_demand = forward_bias + turn_bias;
     right_speed_demand = forward_bias - turn_bias;
-  } 
-  
+    } */
+  if ( millis() - walk_update > 500 ) { //Local bias
+    walk_update = millis();
+
+    // randGaussian(mean, sd).  utils.h
+    if (at_obstical) {
+      turn_bias = randGaussian(0, 10 );
+    }
+    else
+    {
+      osc_bias *= -1;
+      turn_bias =  osc_bias*2 + local_bias() * 8;
+    }
+    // Setting a speed demand with these variables
+    // is automatically captured by a speed PID
+    // controller in timer3 ISR. Check interrupts.h
+    // for more information.
+    left_speed_demand = constrain(forward_bias + turn_bias,-20,20);
+    right_speed_demand = constrain(forward_bias - turn_bias,-20,20);
+  }
 }
 
-float exploreBias()
+float local_bias()
 {
   const float radius = 80;
-  float left_x = Pose.getX() + ( radius * cos( Pose.getThetaRadians() + 45*PI/180) );
-  float left_y = Pose.getY() + ( radius * sin( Pose.getThetaRadians() + 45*PI/180) );
-
+  float left_x = Pose.getX() + ( radius * cos( Pose.getThetaRadians() + 45 * PI / 180) );
+  float left_y = Pose.getY() + ( radius * sin( Pose.getThetaRadians() + 45 * PI / 180) );
+  
+  float back_left_x = Pose.getX() + ( radius * cos( Pose.getThetaRadians() + 135 * PI / 180) );
+  float back_left_y = Pose.getY() + ( radius * sin( Pose.getThetaRadians() + 135 * PI / 180) );
+  
   float fwd_x = Pose.getX() + ( radius * cos( Pose.getThetaRadians() ) );
   float fwd_y = Pose.getY() + ( radius * sin( Pose.getThetaRadians() ) );
-  
-  float right_x = Pose.getX() + ( radius * cos( Pose.getThetaRadians() - 45*PI/180) );
-  float right_y = Pose.getY() + ( radius * sin( Pose.getThetaRadians() - 45*PI/180) );
-  
+
+  float right_x = Pose.getX() + ( radius * cos( Pose.getThetaRadians() - 45 * PI / 180) );
+  float right_y = Pose.getY() + ( radius * sin( Pose.getThetaRadians() - 45 * PI / 180) );
+  float back_right_x = Pose.getX() + ( radius * cos( Pose.getThetaRadians() - 135 * PI / 180) );
+  float back_right_y = Pose.getY() + ( radius * sin( Pose.getThetaRadians() - 135 * PI / 180) );
+
   bool left_cell_ex = Map.readCell(left_y, left_x ) == MAP_DEFAULT_FEATURE;
+  bool back_left_cell_ex = Map.readCell(left_y, left_x ) == MAP_DEFAULT_FEATURE;
+  
   bool fwd_cell_ex = Map.readCell(fwd_y, fwd_x ) == MAP_DEFAULT_FEATURE;
-  bool right_cell_ex = Map.readCell(right_y, right_x )== MAP_DEFAULT_FEATURE;
+  
+  bool right_cell_ex = Map.readCell(back_right_y, back_right_x ) == MAP_DEFAULT_FEATURE;
+  bool back_right_cell_ex = Map.readCell(back_right_y, back_right_x ) == MAP_DEFAULT_FEATURE;
+
   float bias = 0;
-  if (fwd_cell_ex){
-      bias = 0;
-  }else if (left_cell_ex){
+  if (fwd_cell_ex) {
+    bias = 0;
+  } else if (left_cell_ex && right_cell_ex) {
+    long rand_dir = random(-1, 1);
+    rand_dir = rand_dir / abs(rand_dir);
+    bias = float(rand_dir);
+  } else if (left_cell_ex) {
     bias = 1;
-  }else if (right_cell_ex){
+  } else if (right_cell_ex) {
     bias = -1;
+  }else if (back_left_cell_ex && back_right_cell_ex) {
+    long rand_dir = random(-1, 1);
+    rand_dir = rand_dir / abs(rand_dir);
+    bias = float(rand_dir)*3;
+  } else if (back_left_cell_ex) {
+    bias = 3;
+  } else if (back_right_cell_ex) {
+    bias = -3;
   }
-  return bias*0.5;
- 
+  return bias;
 }
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
- * This function groups up our sensor checks, and then
- * encodes into the map.  To get you started, we are 
- * simply placing a character into the map.  However,
- * you might want to look using a bitwise scheme to 
- * encode more information.  Take a look at mapping.h
- * for more information on how we are reading and
- * writing to eeprom memory.
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   This function groups up our sensor checks, and then
+   encodes into the map.  To get you started, we are
+   simply placing a character into the map.  However,
+   you might want to look using a bitwise scheme to
+   encode more information.  Take a look at mapping.h
+   for more information on how we are reading and
+   writing to eeprom memory.
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void doMapping() {
-  
+
   // Read the IR Sensor and determine distance in
   // mm.  Make sure you calibrate your own code!
   // We threshold a reading between 40mm and 12mm.
   // The rationale being:
   // We can't trust very close readings or very far.
   // ...but feel free to investigate this.
-  
+
   bool current_pose_empty = true;
 
   float distance = DistanceSensor.getDistanceInMM();
-  if( distance < 35 && distance > 12 ) {
+  if ( distance < 350 && distance > 120 ) {
 
     // We know the romi has the sensor mounted
     // to the front of the robot.  Therefore, the
     // sensor faces along Pose.Theta.
-    // We also add on the distance of the 
+    // We also add on the distance of the
     // sensor away from the centre of the robot.
     distance += 80;
 
@@ -362,40 +400,40 @@ void doMapping() {
     float projected_x = Pose.getX() + ( distance * cos( Pose.getThetaRadians() ) );
     float projected_y = Pose.getY() + ( distance * sin( Pose.getThetaRadians() ) );
     Map.updateMapFeature( (byte)'O', projected_y, projected_x );
-    
-    
-  } 
+
+
+  }
 
   // Check RFID scanner.
   // Look inside RF_interface.h for more info.
-  if( checkForRFID() ) {
+  if ( checkForRFID() ) {
 
-    // Add card to map encoding.  
+    // Add card to map encoding.
     Map.updateMapFeature( (byte)'R', Pose.getY(), Pose.getX() );
 
     // you can check the position reference and
-    // bearing information of the RFID Card in 
+    // bearing information of the RFID Card in
     // the following way:
     // serialToBearing( rfid.serNum[0] );
     // serialToXPos( rfid.serNum[0] );
     // serialToYPos( rfid.serNum[0] );
     //
-    // Note, that, you will need to set the x,y 
+    // Note, that, you will need to set the x,y
     // and bearing information in rfid.h for your
     // experiment setup.  For the experiment days,
-    // we will tell you the serial number and x y 
-    // bearing information for the cards in use.  
+    // we will tell you the serial number and x y
+    // bearing information for the cards in use.
     current_pose_empty = false;
-  } 
+  }
 
   // Basic uncalibrated check for a line.
   // Students can do better than this after CW1 ;)
-  if( LineCentre.readRaw() > 400 ) {
+  if ( LineCentre.readRaw() > 400 ) {
     current_pose_empty = false;
-      Map.updateMapFeature( (byte)'L', Pose.getY(), Pose.getX() );
+    Map.updateMapFeature( (byte)'L', Pose.getY(), Pose.getX() );
   }
 
-  if (current_pose_empty){ // not technically needed as the explored feature char cannot overide a line or RFID tag (see mapping.h)
+  if (current_pose_empty) { // not technically needed as the explored feature char cannot overide a line or RFID tag (see mapping.h)
     Map.updateMapFeature( (byte)MAP_EXPLORED_FEATURE, Pose.getY() , Pose.getX()  );
   }
 }

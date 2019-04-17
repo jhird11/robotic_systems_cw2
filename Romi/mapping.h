@@ -5,8 +5,8 @@
 const byte MAP_RESOLUTION = 25;
 const byte MAP_DEFAULT_FEATURE = '#';
 const byte MAP_EXPLORED_FEATURE = '.';
-const int MAP_X=560;
-const int MAP_Y=560;
+const int MAP_X=1440;
+const int MAP_Y=1440;
 
 class Mapper
 {

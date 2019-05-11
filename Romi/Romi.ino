@@ -142,7 +142,7 @@ void setup()
   ButtonB.waitForButton();
   setLED1(false);
   Map.printMap();
-  Map.convolute();
+  //Map.convolute();
   Serial.print("Percent Explored: "); Serial.println(Map.percent());
   // Watch for second button press, then begin autonomous mode.
   delay(500);
@@ -209,7 +209,7 @@ void loop() {
   if (millis() - timer1 > 500) {
     timer1 = millis();
 
-    Serial.print(Pose.getX()); Serial.print(","); Serial.println(Pose.getY()); //Serial.println(Pose.getX());
+    //Serial.print(Pose.getX()); Serial.print(","); Serial.println(Pose.getY()); //Serial.println(Pose.getX());
 
     //test_sensors();
     //Map.printMap();
@@ -297,7 +297,8 @@ void doMovement() {
     left_speed_demand = forward_bias + turn_bias;
     right_speed_demand = forward_bias - turn_bias;
     } */
-  /*if ( millis() - walk_update > 500 ) { //Local bias
+    /*
+  if ( millis() - walk_update > 500 ) { //Local bias
     walk_update = millis();
 
     // randGaussian(mean, sd).  utils.h
@@ -316,27 +317,7 @@ void doMovement() {
     left_speed_demand = constrain(forward_bias + turn_bias,-20,20);
     right_speed_demand = constrain(forward_bias - turn_bias,-20,20);
   }*/
-if ( millis() - walk_update > 500 ) { //Local bias
-    walk_update = millis();
 
-    // randGaussian(mean, sd).  utils.h
-    if (at_obstical) {
-      turn_bias = randGaussian(0, 10 );
-    }
-    else
-    {
-      osc_bias *= -1;
-      float e_x,e_y;
-      e_x = X - Map.goal_area_x;
-      e_y = Y - Map.goal_area_y;
-      float error_angle = atan2(e_y,e_x);
-      
-      turn_bias =  osc_bias*2 + error_angle*8;
-    }
-
-    left_speed_demand = constrain(forward_bias + turn_bias,-20,20);
-    right_speed_demand = constrain(forward_bias - turn_bias,-20,20);
-  }
   if ( millis() - walk_update > 500 ) { //go to unexplored areas//
     walk_update = millis();
 
@@ -348,19 +329,20 @@ if ( millis() - walk_update > 500 ) { //Local bias
     {
       osc_bias *= -1;
       float e_x,e_y;
-      e_x = X - Map.goal_area_x;
-      e_y = Y - Map.goal_area_y;
-      float error_angle = atan2(e_y,e_x);
-      
-      turn_bias =  osc_bias*2 + error_angle*8;
+      e_x = Pose.getX() - Map.goal_area_x;
+      e_y = Pose.getY() - Map.goal_area_y;
+      float error_angle = atan2(e_y,e_x) - Pose.getThetaRadians();
+            error_angle =  atan2(sin(error_angle),cos(error_angle));
+      turn_bias =    osc_bias*2 + error_angle*2;
     }
 
     left_speed_demand = constrain(forward_bias + turn_bias,-20,20);
     right_speed_demand = constrain(forward_bias - turn_bias,-20,20);
   }
-  if ((millis() - map_update())>3000)
+  if ((millis() - map_update)>3000)
   {
-    Map.convolute();
+    map_update= millis();
+    Map.convolute(Pose.getX(),Pose.getY() );
   }
   
 }

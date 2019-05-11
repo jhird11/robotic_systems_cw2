@@ -13,7 +13,7 @@ class Mapper
     public:
         void resetMap();
         void printMap();
-        void convolute();
+        void convolute(float robot_x,float robot_y);
         void updateMapFeature(byte feature, int y, int x);
         void updateMapFeature(byte feature, float y, float x);
         char readCell(float y, float x);
@@ -114,7 +114,7 @@ int Mapper::indexToPose(int i, int map_size, int resolution)
     return i* (map_size / resolution);
 }
 
-void Mapper::convolute()
+void Mapper::convolute(float robot_x,float robot_y)
 {
     char processed_map[MAP_RESOLUTION][MAP_RESOLUTION];
 
@@ -130,7 +130,7 @@ void Mapper::convolute()
           }
     }
     char max_score = 0;
-    
+    float best_dist = 0;
     char processed_map2[MAP_RESOLUTION][MAP_RESOLUTION];
     for (int i =0;i<MAP_RESOLUTION;i++){
       for (int j =0;j<MAP_RESOLUTION;j++){
@@ -141,19 +141,34 @@ void Mapper::convolute()
               sum = sum + processed_map[j2][i2];}
             }
          }
-         if (max_score < sum){
-          max_score = sum;
-          goal_area_x = indexToPose(i,MAP_X,MAP_RESOLUTION);
-          goal_area_y = indexToPose(j,MAP_Y,MAP_RESOLUTION);
-          if (sum == 49)
-          {sum = 100;
+         bool set_goal = false;
+          float e_x = (robot_x-indexToPose(i,MAP_X,MAP_RESOLUTION));
+          float e_y = (robot_y-indexToPose(i,MAP_Y,MAP_RESOLUTION));
+          e_x*=e_x;
+          e_y*=e_y;
+          
+          float dist = sqrt(e_x+e_y);
+          if (sum>max_score ){
+            set_goal = true;
+          }
+          else if (max_score == sum){
+          
+            if (dist < best_dist)
+            {
+              set_goal = true;
             }
-          Serial.print("g_x: "); Serial.print(goal_area_x); Serial.print("g_y: "); Serial.println(goal_area_y);
-         }
+            }
+          if (set_goal){
+            max_score = sum;
+            best_dist = dist;
+            goal_area_x = indexToPose(i,MAP_X,MAP_RESOLUTION)+MAP_X/(2*MAP_RESOLUTION);
+            goal_area_y = indexToPose(j,MAP_Y,MAP_RESOLUTION)+MAP_Y/(2*MAP_RESOLUTION);
+            Serial.print("g_x: "); Serial.print(goal_area_x); Serial.print("g_y: "); Serial.println(goal_area_y);
+          }
          processed_map2[j][i]= sum;
       }
     }
-
+/*
     for (int y_index=MAP_RESOLUTION-1;y_index>=0;y_index--)
     {
         for(int x_index=0;x_index<MAP_RESOLUTION;x_index++){
@@ -165,17 +180,28 @@ void Mapper::convolute()
             Serial.print("  ");
         }
         Serial.println("");
-    }
+    }*/
+    int pos_x_index = poseToIndex(robot_x, MAP_X, MAP_RESOLUTION);
+    int pos_y_index = poseToIndex(robot_y, MAP_Y, MAP_RESOLUTION);  
+    int goal_x_index = poseToIndex(goal_area_x, MAP_X, MAP_RESOLUTION);
+    int goal_y_index = poseToIndex(goal_area_y, MAP_Y, MAP_RESOLUTION);  
     for (int y_index=MAP_RESOLUTION-1;y_index>=0;y_index--)
     {
         for(int x_index=0;x_index<MAP_RESOLUTION;x_index++){
-          
-            Serial.print( (unsigned int)processed_map2[y_index][x_index] );
+            if ((x_index == pos_x_index) &&  (y_index == pos_y_index))
+            {
+              Serial.print("O");
+            }else if ((x_index == goal_x_index) &&  (y_index == goal_y_index))
+            {
+              Serial.print("X");
+            }else {
+              Serial.print( (unsigned int)processed_map2[y_index][x_index] );
+            }
             Serial.print("  ");
         }
         Serial.println("");
     }
-
+/**/
 }
 void Mapper::updateMapFeature(byte feature, float y, float x) {
   updateMapFeature( feature, (int)y, (int)x );  

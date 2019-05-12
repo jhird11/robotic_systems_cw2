@@ -278,7 +278,8 @@ void doMovement() {
   // Periodically set a random turn.
   // Here, gaussian means we most often drive
   // forwards, and occasionally make a big turn.
-  /*if( millis() - walk_update > 500 ) { //BASELINE
+  
+  if( millis() - walk_update > 500 ) { //BASELINE
     walk_update = millis();
 
     // randGaussian(mean, sd).  utils.h
@@ -296,7 +297,9 @@ void doMovement() {
     // for more information.
     left_speed_demand = forward_bias + turn_bias;
     right_speed_demand = forward_bias - turn_bias;
-    } */
+    left_speed_demand = constrain(forward_bias + turn_bias,-20,20);
+    right_speed_demand = constrain(forward_bias - turn_bias,-20,20);
+    } 
     /*
   if ( millis() - walk_update > 500 ) { //Local bias
     walk_update = millis();
@@ -317,7 +320,7 @@ void doMovement() {
     left_speed_demand = constrain(forward_bias + turn_bias,-20,20);
     right_speed_demand = constrain(forward_bias - turn_bias,-20,20);
   }*/
-
+/*
   if ( millis() - walk_update > 500 ) { //go to unexplored areas//
     walk_update = millis();
 
@@ -338,7 +341,7 @@ void doMovement() {
 
     left_speed_demand = constrain(forward_bias + turn_bias,-20,20);
     right_speed_demand = constrain(forward_bias - turn_bias,-20,20);
-  }
+  }*/
   if ((millis() - map_update)>3000)
   {
     map_update= millis();

@@ -168,7 +168,7 @@ void Mapper::convolute(float robot_x,float robot_y)
          processed_map2[j][i]= sum;
       }
     }
-/*
+
     for (int y_index=MAP_RESOLUTION-1;y_index>=0;y_index--)
     {
         for(int x_index=0;x_index<MAP_RESOLUTION;x_index++){
@@ -180,7 +180,7 @@ void Mapper::convolute(float robot_x,float robot_y)
             Serial.print("  ");
         }
         Serial.println("");
-    }*/
+    }
     int pos_x_index = poseToIndex(robot_x, MAP_X, MAP_RESOLUTION);
     int pos_y_index = poseToIndex(robot_y, MAP_Y, MAP_RESOLUTION);  
     int goal_x_index = poseToIndex(goal_area_x, MAP_X, MAP_RESOLUTION);

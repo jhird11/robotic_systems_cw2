@@ -142,7 +142,7 @@ void setup()
   ButtonB.waitForButton();
   setLED1(false);
   Map.printMap();
-  //Map.convolute();
+  Map.convolute(250,200);
   Serial.print("Percent Explored: "); Serial.println(Map.percent());
   // Watch for second button press, then begin autonomous mode.
   delay(500);
@@ -298,7 +298,7 @@ void doMovement() {
     left_speed_demand = forward_bias + turn_bias;
     right_speed_demand = forward_bias - turn_bias;
     left_speed_demand = constrain(forward_bias + turn_bias,-20,20);
-    right_speed_demand = constrain(forward_bias - turn_bias,-20,20);
+    right_speed_demand = constrain(forward_bias - turn_bias,-20,20);  
     } 
     /*
   if ( millis() - walk_update > 500 ) { //Local bias
